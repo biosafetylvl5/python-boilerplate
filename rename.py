@@ -574,18 +574,18 @@ def rename_and_replace(
     # --- Summary ---
     summary_text = Text()
     summary_text.append("\nSUMMARY:\n", style="bold")
-    summary_text.append(f"  Directories renamed: ", style="dim")
+    summary_text.append(f"  Directories {'that would be' if dry_run else ''} renamed: ", style="dim")
     summary_text.append(f"{renamed_dirs_count}\n", style="green" if renamed_dirs_count > 0 else "dim")
     
-    summary_text.append(f"  Files with updated content: ", style="dim")
+    summary_text.append(f"  Files {'that would have' if dry_run else 'with'} updated content: ", style="dim")
     summary_text.append(f"{stats['updated']}\n", style="green" if stats['updated'] > 0 else "dim")
     
-    summary_text.append(f"  Files renamed: ", style="dim")
+    summary_text.append(f"  Files {'that would be' if dry_run else ''} renamed: ", style="dim")
     summary_text.append(f"{stats['renamed']}\n", style="green" if stats['renamed'] > 0 else "dim")
     
     summary_text.append(f"  Files skipped: ", style="dim")
-    summary_text.append(f"{stats['skipped']}", style="yellow" if stats['skipped'] > 0 else "dim")
-    
+    summary_text.append(f"{stats['skipped']}", style="yellow" if stats['skipped'] > 0 else "dim") 
+
     console.print(Panel(summary_text, title="[bold blue]Results[/bold blue]"))
 
 def main() -> None:
@@ -594,7 +594,7 @@ def main() -> None:
     
     Parses command line arguments and calls the rename_and_replace function.
     """
-    parser = rich_argparse.RichArgumentParser(
+    parser = argparse.ArgumentParser(
         description=f"Replace '{PLACEHOLDER}' with your project name in directories, files, and file contents.",
         formatter_class=rich_argparse.RichHelpFormatter
     )
