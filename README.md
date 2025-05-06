@@ -1,2 +1,1 @@
-# python-boilerplate
-# python-boilerplate
+# PROJECT
